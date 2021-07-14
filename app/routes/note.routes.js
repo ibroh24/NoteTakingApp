@@ -2,7 +2,7 @@ module.exports = (app) =>{
     const notes = require('../controllers/note.controller.js');
 
     // creating a new note
-    app.post('/notes', notes.create);
+    app.post('/notes',  notes.create);
 
     // retrieve all notes
     app.get('/notes', notes.findAll);
