@@ -36,21 +36,27 @@ exports.findAll = (req, res) =>{
 
 // retrieve single note
 exports.findOne = (req, res) =>{
-    Note.findById(req.params.noteId).then(note =>{
+    const noteId = req.params.noteId;
+    if(!noteId){
+        return res.status(404).send({
+            message: "Note id is required"
+        });
+    }
+    Note.findById(noteId).then(note =>{
         if(!note){
             return res.status(404).send({
-                message : "Note not found with id "+ req.params.noteId 
+                message : "Note not found with id "+ noteId 
             })
         }
         res.send(note);
     }).catch(err =>{
         if(err.kind === "ObjecitId"){
             return res.status(404).send({
-                message: "Note not found with id "+req.params.noteId
+                message: "Note not found with id "+noteId
             });
         }
         return res.status(500).send({
-            message : "Error retrieving note with id "+req.params.noteId
+            message : "Error retrieving note with id "+noteId
         })
     });
 };
