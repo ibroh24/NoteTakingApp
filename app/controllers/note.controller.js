@@ -24,8 +24,13 @@ exports.create = (req, res) => {
     });
 };
 
+// get all notes
 exports.findAll = (req, res) =>{
-
+    Note.find().then(notes =>{
+        res.send(notes);
+    }).catch(err =>{
+        res.status(500).send({message: err.message || "error occured"
+    });
 };
 
 exports.findOne = (req, res) =>{
