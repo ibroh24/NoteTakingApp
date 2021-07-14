@@ -24,8 +24,9 @@ exports.create = (req, res) => {
     });
 };
 
+// retreive all note
 exports.findAll = (req, res) =>{
-
+    
 };
 
 exports.findOne = (req, res) =>{
