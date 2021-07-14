@@ -49,6 +49,9 @@ exports.findOne = (req, res) =>{
                 message: "Note not found with id "+req.params.noteId
             });
         }
+        return res.status(500).send({
+            message : "Error retrieving note with id "+req.params.noteId
+        })
     });
 };
 
