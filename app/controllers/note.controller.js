@@ -48,7 +48,7 @@ exports.findOne = (req, res) =>{
                 message : "Note not found with id "+ noteId 
             })
         }
-        res.send(note);
+        res.send({note: note, message: "note fetched successfully"});
     }).catch(err =>{
         if(err.kind === "ObjecitId"){
             return res.status(404).send({
