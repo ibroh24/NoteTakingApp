@@ -29,12 +29,27 @@ exports.findAll = (req, res) =>{
     Note.find().then(notes =>{
         res.send(notes);
     }).catch(err =>{
-        res.status(500).send({message: err.message || "error occured"
+            res.status(500).send({message: err.message || "error occured"
+        });
     });
 };
 
+// retrieve single note
 exports.findOne = (req, res) =>{
-
+    Note.findById(req.params.noteId).then(note =>{
+        if(!note){
+            return res.status(404).send({
+                message : "Note not found with id "+ req.params.noteId 
+            })
+        }
+        res.send(note);
+    }).catch(err =>{
+        if(err.kind === "ObjecitId"){
+            return res.status(404).send({
+                message: "Note not found with id "+req.params.noteId
+            });
+        }
+    });
 };
 
 exports.update = (req, res) =>{
