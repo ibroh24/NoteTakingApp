@@ -14,7 +14,7 @@ exports.create = (req, res) => {
         content: req.body.content
     });
 
-    // then save note into database
+    // then save note into db
     note.save().then(data =>{
         res.send(data);
     }).catch(err =>{
