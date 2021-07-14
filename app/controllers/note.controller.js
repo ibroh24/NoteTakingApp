@@ -61,10 +61,40 @@ exports.findOne = (req, res) =>{
     });
 };
 
+// update a note with an id
 exports.update = (req, res) =>{
+    const noteId = req.params.noteId;
+    const content = req.body.content;
+    if(!noteId){
+        return res.status(404).send({
+            message: "Invalid note id provided"
+        });
+    }
+    if(!content){
+        return res.status(404).send({
+            message: "content cannot be empty"
+        })
+    }
+    Note.findByIdAndUpdate(noteId, {
+        title: req.body.title || "untitled note",
+        content : content
+    }, {new:true}).then(note =>{
+        if(!note){
+            return res.status(404).send({
+                message: "note not found with an id "+ noteId
+            })
+        }
+        res.send(note);
+    });
 
 };
 
 exports.delete = (req, res) =>{
-
+    const noteId = req.params.noteId;
+    if(!noteId) return res.status(404).send({messgae: "Note id cannot be empty"});
+    Note.findByIdAndRemove(noteId).then(note =>{
+        if(!note){
+            return res.status(404).send({message: "Note not found with id "+noteId});
+        }
+    });
 };
